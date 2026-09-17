@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Flex Dance: משחק בעברית ללימוד Flexbox בעשר משימות ריקוד.">
+  <meta name="theme-color" content="#190f23">
+  <title>Flex Dance | מסדרות את הבמה</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/levels.js" defer></script>
+  <script src="js/game.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#game">דלגי למשחק</a>
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Flex Dance — דף הבית">
+        <span class="brand-mark" aria-hidden="true">♫</span>
+        <span dir="ltr">FLEX<span class="brand-light"> / DANCE</span></span>
+      </a>
+      <div class="header-actions">
+        <a href="#quick-guide">איך משחקים?</a>
+        <button id="restart-game" class="text-button" type="button">התחלה מחדש</button>
+      </div>
+    </header>
+
+    <main id="game">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">מסדרות את הבמה <span aria-hidden="true">/</span> 10 חזרות עד להופעה</p>
+          <h1 id="page-title">לכל רקדנית <span>יש מקום.</span></h1>
+          <p class="intro-text">סדרי את הרקדניות בעזרת Flexbox, השלימי את החזרות והכיני את הלהקה להופעה.</p>
+        </div>
+        <div class="stage-art" aria-hidden="true"><img src="assets/dancer.svg" alt=""><span>THE DANCE STUDIO</span></div>
+      </section>
+
+      <section class="progress-panel" aria-label="התקדמות במשחק">
+        <div class="progress-heading"><strong id="level-counter"></strong><span id="completed-count"></span></div>
+        <progress id="game-progress" value="0" max="10" aria-label="מספר השלבים שהושלמו"></progress>
+        <nav id="level-navigation" class="level-navigation" aria-label="בחירת שלב"></nav>
+      </section>
+
+      <div class="workspace">
+        <section class="mission-panel" aria-labelledby="level-title">
+          <div class="mission-heading"><span id="level-topic" class="tag"></span><span class="live-indicator">החזרה מתחילה</span></div>
+          <h2 id="level-title" tabindex="-1"></h2>
+          <p id="level-instruction" class="instruction"></p>
+          <div class="boards">
+            <figure class="board-figure">
+              <figcaption><strong>הבמה שלך</strong><span class="caption-tag">LIVE</span></figcaption>
+              <div class="board-scroll"><div id="play-board" class="flex-board" dir="ltr" role="group" aria-label="במת הרקדניות שלך" aria-describedby="level-instruction"></div></div>
+              <p id="overflow-note" class="board-note" aria-live="polite"></p>
+            </figure>
+            <figure class="board-figure target-figure">
+              <figcaption><strong>הסידור להופעה</strong><span class="caption-tag">TARGET</span></figcaption>
+              <div class="board-scroll"><div id="target-board" class="flex-board target-board" dir="ltr" role="group" aria-label="דוגמה לסידור המבוקש" aria-describedby="level-instruction"></div></div>
+              <p class="board-note">התאימי גם את המיקום וגם את סדר המספרים.</p>
+            </figure>
+          </div>
+          <p class="axis-note" id="axis-note"></p>
+          <div class="hint-area">
+            <button id="hint-button" class="text-button" type="button" aria-expanded="false" aria-controls="hint-text">✦ צריכה כיוון?</button>
+            <p id="hint-text" hidden></p>
+          </div>
+          <p class="fixed-note">ברירת המחדל בבמה היא סידור משמאל לימין.</p>
+        </section>
+
+        <aside class="control-panel" aria-labelledby="controls-title">
+          <div class="control-heading"><h2 id="controls-title">עמדת הכוריאוגרפיה</h2><span aria-hidden="true">⌘</span></div>
+          <p class="muted">בחרי ערכים וצפי ברקדניות זזות.</p>
+          <form id="controls-form">
+            <fieldset>
+              <legend class="sr-only">מאפייני Flexbox</legend>
+              <div id="property-controls"></div>
+            </fieldset>
+            <details class="code-details" open>
+              <summary>ה־CSS שלך <span dir="ltr">.flex-board</span></summary>
+              <pre dir="ltr"><code id="css-preview"></code></pre>
+            </details>
+            <div class="attempt-row"><span>ניסיונות בשלב: <strong id="attempt-count">0</strong></span><button id="reset-level" type="button" class="text-button">איפוס ערכים ↺</button></div>
+            <button id="check-button" type="submit" class="button primary">בדיקת הסידור <span aria-hidden="true">↗</span></button>
+            <p id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true">המשימה מוכנה. בחרי ערכים כדי להתחיל.</p>
+            <button id="next-level" type="button" class="button next" disabled>למשימה הבאה ←</button>
+          </form>
+        </aside>
+      </div>
+
+      <section id="quick-guide" class="quick-guide" aria-labelledby="guide-title">
+        <h2 id="guide-title">שלושה צעדים להופעה</h2>
+        <div class="guide-steps">
+          <p><span>01</span><strong>קוראים את המשימה</strong>משווים את מספרי הרקדניות ואת המיקומים ביעד.</p>
+          <p><span>02</span><strong>משנים את החוקים</strong>כיוון, יישור וגלישת שורות — כל שינוי מופיע מיד.</p>
+          <p><span>03</span><strong>בודקים ומתקדמים</strong>טעית? אפשר לנסות שוב. הצלחת? המשימה הבאה נפתחת.</p>
+        </div>
+        <details class="concepts">
+          <summary>מילון קצר: מה כל מאפיין עושה?</summary>
+          <dl>
+            <dt><bdi>flex-direction</bdi></dt><dd>מגדיר את הציר הראשי ואת כיוון סידור הפריטים: שורה, עמודה או כיוון הפוך.</dd>
+            <dt><bdi>justify-content</bdi></dt><dd>ממקם ומפזר פריטים לאורך הציר הראשי. בעמודה הוא פועל אנכית.</dd>
+            <dt><bdi>align-items</bdi></dt><dd>מיישר פריטים בציר המשני בתוך כל שורה או עמודה.</dd>
+            <dt><bdi>flex-wrap</bdi></dt><dd>מאפשר לפריטים לעבור לשורות או לעמודות נוספות כשאין מקום.</dd>
+            <dt><bdi>align-content</bdi></dt><dd>ממקם ומפזר את השורות או העמודות כשיש גלישה ושטח פנוי בציר המשני.</dd>
+          </dl>
+        </details>
+      </section>
+    </main>
+    <footer><span dir="ltr">FLEX / DANCE <span class="muted">— learn the moves.</span></span><span id="storage-status" role="status">ההתקדמות נשמרת בדפדפן הזה.</span></footer>
+  </div>
+  <dialog id="finish-dialog" aria-labelledby="finish-title" aria-describedby="finish-description">
+    <span class="finish-symbol" aria-hidden="true">♫</span>
+    <p class="eyebrow">READY TO PERFORM</p>
+    <h2 id="finish-title">כל הרקדניות מוכנות!</h2>
+    <p id="finish-description">השלמת את כל 10 המשימות. הלהקה מוכנה לעלות לבמה!</p>
+    <p id="finish-stats"></p>
+    <button id="close-finish" class="button primary" type="button" autofocus>חזרה לסטודיו ולתרגול</button>
+  </dialog>
+  <noscript><p class="noscript-message">כדי לשחק יש להפעיל JavaScript בדפדפן.</p></noscript>
+</body>
+</html>
